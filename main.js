@@ -101,10 +101,10 @@ function main() {
             }
             
             //Existing build numbers:
-			let major = nrTags.map(t => parseInt(t.match(/-(\d+)./)[1]));
-			let minor = nrTags.map(t => parseInt(t.match(/-\d+.(\d+)./)[1]));
-			let patch = nrTags.map(t => parseInt(t.match(/-\d+.\d+.(\d+)./)[1]));
-			let buildNumber = nrTags.map(t => parseInt(t.match(/-\d+.\d+.\d+.(\d+)./)[1]));
+			let major = nrTags.map(t => parseInt(t.ref.match(/-(\d+)./)[1]));
+			let minor = nrTags.map(t => parseInt(t.ref.match(/-\d+.(\d+)./)[1]));
+			let patch = nrTags.map(t => parseInt(t.ref.match(/-\d+.\d+.(\d+)./)[1]));
+			let buildNumber = nrTags.map(t => parseInt(t.ref.match(/-\d+.\d+.\d+.(\d+)./)[1]));
 
             //let nrs = nrTags.map(t => parseInt(t.ref.match(/-(\d+)$/)[1]));
 			
