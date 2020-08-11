@@ -141,7 +141,7 @@ function main() {
 			nextMinor = currentMinor;
 			nextPatch = currentPatch;
 			
-            console.log(`Updating build counter to ${nextMajor}.${nextMinor}.${nextMinor}+${nextBuildNumber}...`);
+            console.log(`Updating build counter to ${nextMajor}.${nextMinor}.${nextPatch}+${nextBuildNumber}...`);
         } else {
             if (err) {
                 fail(`Failed to get refs. Error: ${err}, status: ${status}`);
@@ -151,7 +151,7 @@ function main() {
         }
 
         let newRefData = {
-            ref:`refs/tags/${prefix}build-number-${nextMajor}.${nextMinor}.${nextMinor}.${nextBuildNumber}`, 
+            ref:`refs/tags/${prefix}build-number-${nextMajor}.${nextMinor}.${nextPatch}.${nextBuildNumber}`, 
             sha: env.GITHUB_SHA
         };
     
@@ -163,8 +163,8 @@ function main() {
             console.log(`Successfully updated build number to ${nextMajor}.${nextMinor}.${nextMinor}+${nextBuildNumber}`);
             
             //Setting the output and a environment variable to new build number...
-            console.log(`::set-env name=BUILD_NUMBER::${nextMajor}.${nextMinor}.${nextMinor}+${nextBuildNumber}`);
-            console.log(`::set-output name=build_number::${nextMajor}.${nextMinor}.${nextMinor}+${nextBuildNumber}`);
+            console.log(`::set-env name=BUILD_NUMBER::${nextMajor}.${nextMinor}.${nextPatch}+${nextBuildNumber}`);
+            console.log(`::set-output name=build_number::${nextMajor}.${nextMinor}.${nextPatch}+${nextBuildNumber}`);
             //Save to file so it can be used for next jobs...
             fs.writeFileSync('BUILD_NUMBER', nextBuildNumber.toString());
             
