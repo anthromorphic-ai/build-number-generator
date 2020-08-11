@@ -8,6 +8,6 @@ jobs:
     steps:
     - name: Generate build number
       id: buildnumber
-      uses: actions/build-number-generator
+      uses: actions/build-number-generator@v1
       with:
         token: ${{secrets.PAT}}
