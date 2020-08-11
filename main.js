@@ -84,7 +84,7 @@ function main() {
 
     request('GET', `/repos/${env.GITHUB_REPOSITORY}/git/refs/tags/${prefix}build-number-`, null, (err, status, result) => {
     
-        let nextBuildNumber, nextMajor, nextMinor, nextPatch, nrTags;
+        let nextBuildNumber, nrTags;
     
         if (status === 404) {
             console.log('No build-number ref available, starting at 1.');
@@ -137,11 +137,9 @@ function main() {
             console.log(`Last build nr was ${currentBuildNumber}.`);
     
             nextBuildNumber = currentBuildNumber + 1;
-			nextMajor = currentMajor;
-			nextMinor = currentMinor;
-			nextPatch = currentPatch;
 			
-            console.log(`Updating build counter to ${nextMajor}.${nextMinor}.${nextPatch}+${nextBuildNumber}...`);
+			
+            console.log(`Updating build counter to ${currentMajor}.${currentMinor}.${currentPatch}+${nextBuildNumber}...`);
         } else {
             if (err) {
                 fail(`Failed to get refs. Error: ${err}, status: ${status}`);
@@ -151,7 +149,7 @@ function main() {
         }
 
         let newRefData = {
-            ref:`refs/tags/${prefix}build-number-${nextMajor}.${nextMinor}.${nextPatch}.${nextBuildNumber}`, 
+            ref:`refs/tags/${prefix}build-number-${currentMajor}.${currentMinor}.${currentPatch}.${nextBuildNumber}`, 
             sha: env.GITHUB_SHA
         };
     
@@ -160,11 +158,11 @@ function main() {
                 fail(`Failed to create new build-number ref. Status: ${status}, err: ${err}, result: ${JSON.stringify(result)}`);
             }
 
-            console.log(`Successfully updated build number to ${nextMajor}.${nextMinor}.${nextMinor}+${nextBuildNumber}`);
+            console.log(`Successfully updated build number to ${currentMajor}.${currentMinor}.${currentPatch}+${nextBuildNumber}`);
             
             //Setting the output and a environment variable to new build number...
-            console.log(`::set-env name=BUILD_NUMBER::${nextMajor}.${nextMinor}.${nextPatch}+${nextBuildNumber}`);
-            console.log(`::set-output name=build_number::${nextMajor}.${nextMinor}.${nextPatch}+${nextBuildNumber}`);
+            console.log(`::set-env name=BUILD_NUMBER::${currentMajor}.${currentMinor}.${currentPatch}+${nextBuildNumber}`);
+            console.log(`::set-output name=build_number::${currentMajor}.${currentMinor}.${currentPatch}+${nextBuildNumber}`);
             //Save to file so it can be used for next jobs...
             fs.writeFileSync('BUILD_NUMBER', nextBuildNumber.toString());
             
