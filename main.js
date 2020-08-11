@@ -104,7 +104,7 @@ function main() {
 			let major = nrTags.map(t => parseInt(t.ref.match(/-(\d+)./)[1]));
 			let minor = nrTags.map(t => parseInt(t.ref.match(/-\d+.(\d+)./)[1]));
 			let patch = nrTags.map(t => parseInt(t.ref.match(/-\d+.\d+.(\d+)./)[1]));
-			let buildNumber = nrTags.map(t => parseInt(t.ref.match(/-\d+.\d+.\d+.(\d+)./)[1]));
+			let buildNumber = nrTags.map(t => parseInt(t.ref.match(/-\d+.\d+.\d+.(\d+)/)[1]));
 
             //let nrs = nrTags.map(t => parseInt(t.ref.match(/-(\d+)$/)[1]));
 			
@@ -128,6 +128,12 @@ function main() {
 					currentPatch = 0;
 			}
 
+            console.log(`Last Major version was ${currentMajor}.`);
+			
+			console.log(`Last Minor version was ${currentMinor}.`);
+			
+			console.log(`Last Patch version was ${currentPatch}.`);
+			
             console.log(`Last build nr was ${currentBuildNumber}.`);
     
             nextBuildNumber = currentBuildNumber + 1;
