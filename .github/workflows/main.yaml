@@ -1,0 +1,13 @@
+on: [push]
+
+
+jobs:
+  build_number_create:
+    name: Create Build number
+    runs-on: ubuntu-latest
+    steps:
+    - name: Generate build number
+      id: buildnumber
+      uses: actions/build-number-generator@v1
+      with:
+        token: ${{secrets.PAT}}
