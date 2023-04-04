@@ -2,7 +2,7 @@ name: 'Build Number Generator'
 description: 'Generate sequential build name and numbers for workflow runs'
 author: 'monkee'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'main.js'
 inputs:
   token:
